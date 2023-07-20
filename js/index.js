@@ -6,7 +6,7 @@ let shop = {
     {
       id: 1,
       name: "Филадельфия хит ролл",
-      img: "/img/roll/philadelphia.jpg",
+      img: "img/roll/philadelphia.jpg",
       amount: 6,
       count: 1,
       weight: 180,
@@ -15,7 +15,7 @@ let shop = {
     {
       id: 2,
       name: "Калифорния темпура",
-      img: "/img/roll/california-tempura.jpg",
+      img: "img/roll/california-tempura.jpg",
       amount: 6,
       count: 1,
       weight: 205,
@@ -24,7 +24,7 @@ let shop = {
     {
       id: 3,
       name: "Запеченый ролл «Калифорния»",
-      img: "/img/roll/zapech-california.jpg",
+      img: "img/roll/zapech-california.jpg",
       amount: 6,
       count: 1,
       weight: 182,
@@ -33,7 +33,7 @@ let shop = {
     {
       id: 4,
       name: "Филадельфия",
-      img: "/img/roll/philadelphia.jpg",
+      img: "img/roll/philadelphia.jpg",
       amount: 6,
       count: 1,
       weight: 230,
@@ -105,7 +105,7 @@ cardPriceСurrency.textContent = `${product.price} ₽`;
 cardButton.textContent = '+ в корзину';
 
 cardCounterMinus.addEventListener("click", () => {
-  if (product.count > 0) {
+  if (product.count > 1) {
     product.count -= 1;
     cardCounterNumber.textContent = product.count;
   }
