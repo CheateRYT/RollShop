@@ -1,7 +1,7 @@
 // Обьект магазина
 
 let shop = {
-  basket: [],
+  cart: [],
   products: [
     {
       id: 1,
@@ -96,7 +96,15 @@ plusButtons.forEach(function(plusButton) {
   });
 });
 
+//Кнопка в корзину
 
+const cartButtons = document.querySelectorAll('[data-cart]');
+cartButtons.forEach(function(cartButton, index) {
+  cartButton.addEventListener('click', function() {
+    const product = shop.products[index]; // получаем продукт по индексу
+    shop.cart.push(product);
+  });
+});
 
 
 //Способ через createElement 
@@ -187,3 +195,9 @@ plusButtons.forEach(function(plusButton) {
 //   cardWrapper.appendChild(cardPlace)
 
 });
+
+// Корзина
+
+const cart = document.querySelector('cart-wrapper');
+
+
