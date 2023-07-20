@@ -52,6 +52,7 @@ shop.products.forEach((product) => {
 
 //Inner Html способ добавления
 
+
 cardWrapper.innerHTML += `
 <div class="col-md-6">
 <div class="card mb-4" data-id="01">
@@ -59,44 +60,95 @@ cardWrapper.innerHTML += `
   <div class="card-body text-center">
     <h4 class="item-title">${product.name}</h4>
     <p><small data-items-in-box class="text-muted">${product.amount}шт.</small></p>
-
-    <div class="details-wrapper">
+     <div class="details-wrapper">
       <div class="items counter-wrapper">
         <div class="items__control" data-action="minus">-</div>
         <div class="items__current" data-counter>${product.count}</div>
         <div class="items__control" data-action="plus">+</div>
       </div>
-
-      <div class="price">
+       <div class="price">
         <div class="price__weight">${product.weight}г.</div>
         <div class="price__currency">${product.price} ₽</div>
       </div>
     </div>
-
-    <button data-cart  type="button" class="btn btn-block btn-outline-warning">+ в корзину</button>
-
-  </div>
+     <button data-cart  type="button" class="btn btn-block btn-outline-warning">+ в корзину</button>
+   </div>
 </div>
 </div>`;
+ 
+const minusButtons = document.querySelectorAll('.items__control[data-action="minus"]');
+const plusButtons = document.querySelectorAll('.items__control[data-action="plus"]');
+minusButtons.forEach(function(minusButton) {
+  minusButton.addEventListener('click', function() {
+    const product = this.closest('.card'); //Родитель  .card
+    const countElement = product.querySelector('.items__current'); //Счетчик
+    if (product && parseInt(countElement.textContent) > 1) {
+      countElement.textContent = parseInt(countElement.textContent) - 1;
+    }
+  });
+});
+plusButtons.forEach(function(plusButton) {
+  plusButton.addEventListener('click', function() {
+    const product = this.closest('.card');
+    if (product) {
+      const countElement = product.querySelector('.items__current');
+      countElement.textContent = parseInt(countElement.textContent) + 1;
+    }
+  });
+});
 
-//Функция прибавления 
 
-  let cardCounterPlus = document.querySelector('[data-action="plus"]')
-  let cardCounterMinus = document.querySelector('.items__control');
-  let cardCounterNumber = document.querySelector('.items__current')
+// cardWrapper.innerHTML += `
+// <div class="col-md-6">
+// <div class="card mb-4" data-id="01">
+//   <img class="product-img" src="${product.img}" alt="">
+//   <div class="card-body text-center">
+//     <h4 class="item-title">${product.name}</h4>
+//     <p><small data-items-in-box class="text-muted">${product.amount}шт.</small></p>
 
-  cardCounterMinus.addEventListener("click", () => {
-       if (product.count > 1) {
-        product.count -= 1;
-         cardCounterNumber.textContent = product.count;
-       }
-     });
-  cardCounterPlus.addEventListener("click", () => {
-      
-        product.count += 1;
-         cardCounterNumber.textContent = product.count;
-     });
+//     <div class="details-wrapper">
+//       <div class="items counter-wrapper">
+//         <div class="items__control" data-action="minus">-</div>
+//         <div class="items__current" data-counter>${product.count}</div>
+//         <div class="items__control" data-action="plus">+</div>
+//       </div>
 
+//       <div class="price">
+//         <div class="price__weight">${product.weight}г.</div>
+//         <div class="price__currency">${product.price} ₽</div>
+//       </div>
+//     </div>
+
+//     <button data-cart  type="button" class="btn btn-block btn-outline-warning">+ в корзину</button>
+
+//   </div>
+// </div>
+// </div>`;
+
+// //Функция прибавления
+
+//   // Находим элементы с классом "items__control"
+// // Находим все элементы с классом "items__control"
+// const minusButtons = document.querySelectorAll('.items__control[data-action="minus"]');
+// const plusButtons = document.querySelectorAll('.items__control[data-action="plus"]');
+//  minusButtons.forEach(function(minusButton) {
+//   minusButton.addEventListener('click', function() {
+//     const product = this.closest('.item');
+//     if (product) {
+//       const countElement = product.querySelector('.item__count');
+//       countElement.textContent = parseInt(countElement.textContent) - 1;
+//     }
+//   });
+// });
+//  plusButtons.forEach(function(plusButton) {
+//   plusButton.addEventListener('click', function() {
+//     const product = this.closest('.item');
+//     if (product) {
+//       const countElement = product.querySelector('.item__count');
+//       countElement.textContent = parseInt(countElement.textContent) + 1;
+//     }
+//   });
+// });
 
 
 
