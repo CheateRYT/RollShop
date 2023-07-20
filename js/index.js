@@ -127,7 +127,7 @@ cartButtons.forEach(function (cartButton, index) {
       counterElement.textContent = existingProduct.count;
     } else {
       checkCart() 
-      shop.cart.push({ id: product.id, count: product.count });
+      shop.cart.push({ id: product.id, count: product.count, price: product.price });
       toCart(product);
     }
     cartButton.textContent = "Добавлено";
@@ -261,13 +261,21 @@ function toCart(product) {
   
 }
 
-//Проверка на пустоту корзины
+//Проверка на пустоту корзины и итоговую
 function checkCart() {
   let cartAlert = document.getElementById('alert')
+  const totalPrice = document.querySelector('.total-price')
   if (shop.cart.length > 0) {
     cartAlert.style.display = 'none';
+   let totalPriceCounter = 0;
+    shop.cart.forEach(item => {
+    totalPriceCounter += item.price * item.count;
+    console.log(totalPriceCounter);
+    totalPrice.textContent = totalPriceCounter;
+    })
   } else {
     cartAlert.style.display = 'block';
+    totalPrice.textContent = '0';
   }
 }
 
@@ -275,15 +283,19 @@ function checkCart() {
 document.querySelector('.cart-wrapper').addEventListener('click', function(event) {
   if (event.target.dataset.action === 'minus' || event.target.dataset.action === 'plus') {
     const cartItem = event.target.closest('.cart-item');
+    checkCart()
     const product = shop.cart.find(item => item.id === parseInt(cartItem.dataset.id));
     const counterElement = cartItem.querySelector('[data-counter]');
     if (event.target.dataset.action === 'minus') {
+      checkCart()
       if (product.count > 1) {
+        console.log(shop)
         product.count -= 1;
         counterElement.textContent = product.count;
+        checkCart()
       } else {
         // удаляем товар из корзины, если его количество равно 0
-      
+       
         shop.cart = shop.cart.filter(item => item.id !== product.id);
         cartItem.remove();  
         checkCart() 
@@ -291,9 +303,12 @@ document.querySelector('.cart-wrapper').addEventListener('click', function(event
     } else {
       product.count += 1;
       counterElement.textContent = product.count;
+      checkCart()
     }
   }
 });
 
+
+checkCart();
 console.log(shop)
 console.log('console.log(shop)')
