@@ -70,6 +70,7 @@ const cardWrapper = rows[rows.length - 1];
 </div>`;
 });
  // обработчики событий для кнопок уменьшения и увеличения количества товара
+ // обработчики событий для кнопок уменьшения и увеличения количества товара
 const minusButtons = document.querySelectorAll('.items__control[data-action="minus"]');
 const plusButtons = document.querySelectorAll('.items__control[data-action="plus"]');
 minusButtons.forEach(function (minusButton) {
@@ -81,14 +82,6 @@ minusButtons.forEach(function (minusButton) {
       const product = shop.products.find(product => product.id === parseInt(productCard.dataset.id));
       if (product) {
         product.count = parseInt(countElement.textContent);
-      }
-      const cartItem = document.querySelector(`.cart-item[data-id="${product.id}"]`);
-      if (cartItem) {
-        const counterElement = cartItem.querySelector('[data-counter]');
-        counterElement.textContent = product.count;
-        if (product.count < 1) {
-          cartItem.remove();
-        }
       }
     }
   });
@@ -103,11 +96,6 @@ plusButtons.forEach(function (plusButton) {
       if (product) {
         product.count = parseInt(countElement.textContent);
       }
-      const cartItem = document.querySelector(`.cart-item[data-id="${product.id}"]`);
-      if (cartItem) {
-        const counterElement = cartItem.querySelector('[data-counter]');
-        counterElement.textContent = product.count;
-      }
     }
   });
 });
@@ -116,28 +104,30 @@ plusButtons.forEach(function (plusButton) {
 const cartButtons = document.querySelectorAll("[data-cart]");
 cartButtons.forEach(function (cartButton, index) {
   cartButton.addEventListener("click", function () {
-    checkCart() 
     const product = shop.products[index];
     const existingProduct = shop.cart.find(item => item.id === product.id);
     if (existingProduct) {
-      checkCart() 
       existingProduct.count += product.count;
       const cartItem = document.querySelector(`.cart-item[data-id="${product.id}"]`);
       const counterElement = cartItem.querySelector('[data-counter]');
       counterElement.textContent = existingProduct.count;
+      checkCart()
     } else {
-      checkCart() 
       shop.cart.push({ id: product.id, count: product.count, price: product.price });
       toCart(product);
+      checkCart()
     }
-    cartButton.textContent = "Добавлено";
-    checkCart() 
+    product.count = 1; // обновляем значение счетчика вне корзины
+    const productCard = document.querySelector(`.card[data-id="${product.id}"]`);
+    const countElement = productCard.querySelector(".items__current");
+    countElement.textContent = product.count; // обновляем отображение счетчика вне корзины
+    cartButton.textContent = "Добавлено"
+    checkCart();
     setTimeout(function () {
       cartButton.textContent = "+ в корзину";
     }, 5000);
   });
 });
-
 
   //Способ через createElement
 
