@@ -112,7 +112,28 @@ h3, h4 {
 .cart-item {
 
 }
-
+.page-strip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ .pagination__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+	cursor: pointer;
+  margin: 5px;
+  background-color: #ccc;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 20px;
+}
+ .pagination__item--active {
+  background-color: #333;
+}
 .cart-item__top {
 	display: flex;
 	align-items: flex-start;
