@@ -92,7 +92,7 @@ let shop = {
       amount: 6,
       count: 1,
       weight: 212,
-      price: 378,
+      price: 126,
     },
     {
       id: 11,
@@ -122,10 +122,14 @@ const weightSort = document.getElementById('weight-sort');
 
 filterButton.addEventListener('click', () => {
   const selectedPriceSort = priceSort.value;
-   filterProducts('price', selectedPriceSort);
+  filterProducts('price', selectedPriceSort);
   // Обновляем все страницы после применения фильтра
-  showProducts(shop.page,4)
-    
+  showProducts(1,4);
+  let allPageChangersItems = document.querySelectorAll(".pagination__item");
+  allPageChangersItems.forEach((item) => {
+    item.classList.remove("pagination__item--active");
+  });
+  allPageChangersItems[0].classList.add("pagination__item--active");
 });
 
 
@@ -134,25 +138,26 @@ filterButton.addEventListener('click', () => {
 let sortedProducts = [...shop.products];
  // Функция для фильтра массива с продуктами 
  function filterProducts(filterType, sortOrder) {
-  // Используем sortedProducts вместо shop.products
   sortedProducts = [...shop.products];
-  if (sortOrder === 'without') { // добавляем условие для опции "Без сортировки"
-    return; // просто выходим из функции без сортировки
+  if (sortOrder === 'without') {
+    return;
   }
   if (filterType === 'price' || filterType === 'weight') {
     sortedProducts.sort((a, b) => {
+      if (a[filterType] === b[filterType]) { // если цена одинаковая
+        return b['weight'] - a['weight']; // сортируем по убыванию веса
+      }
       if (sortOrder === 'asc') {
         return a[filterType] - b[filterType];
       } else if (sortOrder === 'desc') {
         return b[filterType] - a[filterType];
       }
     });
-    // Обновляем количество страниц после сортировки
     let pagesCount = Math.ceil(sortedProducts.length / 4);
     for(let i = 1; i <= pagesCount; i++) {
       showProducts(i, 4);
     }
-    shopCurrentProducts = extractCurrentProducts(1, 4); // добавьте эту строку
+    shopCurrentProducts = extractCurrentProducts(1, 4);
   }
 }
  // Вырезать первые 4 товара для главной страницы
