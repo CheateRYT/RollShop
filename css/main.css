@@ -133,7 +133,39 @@ h3, h4 {
 }
  .pagination__item--active {
   background-color: #333;
-}
+ }
+.filter-block {
+		background-color: #f2f2f2;
+		padding: 10px;
+		border-radius: 5px;
+	}
+	 .filter-block h3 {
+		font-size: 18px;
+		margin-bottom: 10px;
+	}
+	 .filter-block label {
+		display: block;
+		margin-bottom: 5px;
+	}
+	 .filter-block select {
+		width: 100%;
+		padding: 5px;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+	}
+	 .filter-button {
+		background-color: #4CAF50;
+		color: white;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		font-size: 16px;
+		margin-top: 10px;
+	}
+	 .filter-button:hover {
+		background-color: #45a049;
+	}
 .cart-item__top {
 	display: flex;
 	align-items: flex-start;

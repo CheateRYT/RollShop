@@ -1,6 +1,7 @@
 // Обьект магазина
 
 let shop = {
+  page: 1,
   cart: [],
   products: [
     {
@@ -54,7 +55,7 @@ let shop = {
       img: "img/roll/california-tempura.jpg",
       amount: 6,
       count: 1,
-      weight: 205,
+      weight: 2221,
       price: 424,
     },
     {
@@ -63,7 +64,7 @@ let shop = {
       img: "img/roll/zapech-california.jpg",
       amount: 6,
       count: 1,
-      weight: 182,
+      weight: 50,
       price: 111,
     },
     {
@@ -72,7 +73,7 @@ let shop = {
       img: "img/roll/philadelphia.jpg",
       amount: 6,
       count: 1,
-      weight: 230,
+      weight: 790,
       price: 890,
     },
     {
@@ -90,7 +91,7 @@ let shop = {
       img: "img/roll/california-tempura.jpg",
       amount: 6,
       count: 1,
-      weight: 205,
+      weight: 212,
       price: 378,
     },
     {
@@ -99,7 +100,7 @@ let shop = {
       img: "img/roll/zapech-california.jpg",
       amount: 6,
       count: 1,
-      weight: 182,
+      weight: 100,
       price: 292,
     },
     {
@@ -113,7 +114,34 @@ let shop = {
     },
   ],
 };
+const filterButton = document.querySelector('.filter-button');
+const priceSort = document.getElementById('price-sort');
+const weightSort = document.getElementById('weight-sort');
 
+filterButton.addEventListener('click', () => {
+  const selectedPriceSort = priceSort.value;
+  const selectedWeightSort = weightSort.value;
+   filterProducts('price', selectedPriceSort);
+  filterProducts('weight', selectedWeightSort);
+  // Обновляем все страницы после применения фильтра
+  let pagesCount = Math.ceil(shop.products.length / 4);
+  for(let i = 1; i <= pagesCount; i++) {
+    showProducts(i, 4);
+  }
+});
+
+function filterProducts(filterType, sortOrder) {
+  if (filterType === 'price' || filterType === 'weight') {
+    shop.products.sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a[filterType] - b[filterType];
+      } else if (sortOrder === 'desc') {
+        return b[filterType] - a[filterType];
+      }
+    });
+  }
+}
+console.log(shop.products)
 const pageCountBlock = document.querySelector(".page-strip");
 
 function checkPageCount() {
@@ -136,9 +164,9 @@ function extractCurrentProducts(pageNumber, elementCount) {
   const shopCurrentProducts = shop.products.slice(startIndex, endIndex);
   return shopCurrentProducts;
 }
-extractCurrentProducts(1, 4);
+extractCurrentProducts(shop.page, 4);
 console.log(extractCurrentProducts(1, 4));
-let shopCurrentProducts = extractCurrentProducts(1, 4);
+let shopCurrentProducts = extractCurrentProducts(shop.page, 4);
 
 const rows = document.querySelectorAll(".row");
 const cardWrapper = rows[rows.length - 1];
@@ -265,8 +293,8 @@ document.body.addEventListener("click", (event) => {
       item.classList.remove("pagination__item--active");
     });
     pageChangersItem.classList.add("pagination__item--active");
-    shopCurrentProducts = extractCurrentProducts(page, 4);
-    showProducts(page, 4);
+    shopCurrentProducts = extractCurrentProducts(shop.page, 4);
+    showProducts(shop.page, 4);
   }
 
   if (
@@ -277,7 +305,7 @@ document.body.addEventListener("click", (event) => {
     const cartItem = event.target.closest(".cart-item");
     if (cartItem) {
       console.log(event.target.closest);
-      console.log(event.target.dataset.action);
+      console.log(cartItem);
       checkCart();
       const product = shop.cart.find(
         (item) => item.id === parseInt(cartItem.dataset.id)
