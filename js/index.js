@@ -114,34 +114,52 @@ let shop = {
     },
   ],
 };
+
+//Меню выбора фильтра
 const filterButton = document.querySelector('.filter-button');
 const priceSort = document.getElementById('price-sort');
 const weightSort = document.getElementById('weight-sort');
 
 filterButton.addEventListener('click', () => {
   const selectedPriceSort = priceSort.value;
-  const selectedWeightSort = weightSort.value;
    filterProducts('price', selectedPriceSort);
-  filterProducts('weight', selectedWeightSort);
   // Обновляем все страницы после применения фильтра
-  let pagesCount = Math.ceil(shop.products.length / 4);
-  for(let i = 1; i <= pagesCount; i++) {
-    showProducts(i, 4);
-  }
+  showProducts(shop.page,4)
+    
 });
 
-function filterProducts(filterType, sortOrder) {
+
+//Функция для фильтра массива с продуктами 
+// Глобальная переменная для хранения текущего состояния отсортированного массива
+let sortedProducts = [...shop.products];
+ // Функция для фильтра массива с продуктами 
+ function filterProducts(filterType, sortOrder) {
+  // Используем sortedProducts вместо shop.products
+  sortedProducts = [...shop.products];
+  if (sortOrder === 'without') { // добавляем условие для опции "Без сортировки"
+    return; // просто выходим из функции без сортировки
+  }
   if (filterType === 'price' || filterType === 'weight') {
-    shop.products.sort((a, b) => {
+    sortedProducts.sort((a, b) => {
       if (sortOrder === 'asc') {
         return a[filterType] - b[filterType];
       } else if (sortOrder === 'desc') {
         return b[filterType] - a[filterType];
       }
     });
+    // Обновляем количество страниц после сортировки
+    let pagesCount = Math.ceil(sortedProducts.length / 4);
+    for(let i = 1; i <= pagesCount; i++) {
+      showProducts(i, 4);
+    }
+    shopCurrentProducts = extractCurrentProducts(1, 4); // добавьте эту строку
   }
 }
+ // Вырезать первые 4 товара для главной страницы
+
+
 console.log(shop.products)
+//Функция для расчета количества страниц
 const pageCountBlock = document.querySelector(".page-strip");
 
 function checkPageCount() {
@@ -156,12 +174,12 @@ function checkPageCount() {
     }</div>`;
   }
 }
-checkPageCount();
 //Вырезать первые 4 товара для главной страницы
 function extractCurrentProducts(pageNumber, elementCount) {
   const startIndex = (pageNumber - 1) * elementCount;
   const endIndex = startIndex + elementCount;
-  const shopCurrentProducts = shop.products.slice(startIndex, endIndex);
+  // Используем sortedProducts вместо shop.products
+  const shopCurrentProducts = sortedProducts.slice(startIndex, endIndex);
   return shopCurrentProducts;
 }
 extractCurrentProducts(shop.page, 4);
@@ -293,9 +311,10 @@ document.body.addEventListener("click", (event) => {
       item.classList.remove("pagination__item--active");
     });
     pageChangersItem.classList.add("pagination__item--active");
-    shopCurrentProducts = extractCurrentProducts(shop.page, 4);
-    showProducts(shop.page, 4);
+    shopCurrentProducts = extractCurrentProducts(page, 4); // обновляем продукты для текущей страницы
+    showProducts(page, 4); // передаем номер страницы вместо shop.page
   }
+  // остальной код
 
   if (
     event.target.dataset.action === "minus" ||
@@ -338,8 +357,6 @@ document.body.addEventListener("click", (event) => {
 });
 
 // обработчики событий для кнопок уменьшения и увеличения количества товара
-// обработчики событий для кнопок уменьшения и увеличения количества товара
-
 const cart = document.querySelector(".cart-wrapper");
 function toCart(product) {
   const existingProduct = document.querySelector(
@@ -375,9 +392,7 @@ function toCart(product) {
   }
 }
 
-//Проверка на пустоту корзины и итоговую
-
-//Добавление и удаление товаров из корзины
+//Проверка на пустоту корзины
 
 function checkCart() {
   let cartAlert = document.getElementById("alert");
@@ -395,8 +410,11 @@ function checkCart() {
     totalPrice.textContent = "0";
   }
 }
-showProducts(1, 4);
 
+
+extractCurrentProducts(shop.page, 4);
+checkPageCount();
+showProducts(1, 4);
 checkCart();
 console.log(shop);
 console.log("console.log(shop)");
