@@ -116,15 +116,17 @@ let shop = {
 
 const pageCountBlock = document.querySelector(".page-strip");
 
-function checkPageCount() { 
-  let productsCount = shop.products.length; 
-  let elementsOnPageCount = 4; 
-  let pagesCount = Math.ceil(productsCount / elementsOnPageCount); 
-  console.log(pagesCount); 
-  for (let i = 0; i < pagesCount; i++) { 
-    let activeClass = i === 0 ? 'pagination__item--active' : ''; 
-    pageCountBlock.innerHTML += `<div href="" class="pagination__item ${activeClass}">${i+1}</div>`; 
-  } 
+function checkPageCount() {
+  let productsCount = shop.products.length;
+  let elementsOnPageCount = 4;
+  let pagesCount = Math.ceil(productsCount / elementsOnPageCount);
+  console.log(pagesCount);
+  for (let i = 0; i < pagesCount; i++) {
+    let activeClass = i === 0 ? "pagination__item--active" : "";
+    pageCountBlock.innerHTML += `<div href="" class="pagination__item ${activeClass}">${
+      i + 1
+    }</div>`;
+  }
 }
 checkPageCount();
 //Вырезать первые 4 товара для главной страницы
