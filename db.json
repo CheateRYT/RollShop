@@ -1,0 +1,114 @@
+{
+  "page": 1,
+  "cart": [],
+  "products": [
+    {
+      "id": 1,
+      "name": "Филадельфия хит ролл",
+      "img": "img/roll/philadelphia.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 180,
+      "price": 317
+    },
+    {
+      "id": 2,
+      "name": "Калифорния темпура",
+      "img": "img/roll/california-tempura.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 205,
+      "price": 250
+    },
+    {
+      "id": 3,
+      "name": "Запеченый ролл «Калифорния»",
+      "img": "img/roll/zapech-california.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 182,
+      "price": 230
+    },
+    {
+      "id": 4,
+      "name": "Филадельфия",
+      "img": "img/roll/philadelphia.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 230,
+      "price": 320
+    },
+    {
+      "id": 5,
+      "name": "Филадельфия хит ролл",
+      "img": "img/roll/philadelphia.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 180,
+      "price": 555
+    },
+    {
+      "id": 6,
+      "name": "Калифорния темпура",
+      "img": "img/roll/california-tempura.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 2221,
+      "price": 424
+    },
+    {
+      "id": 7,
+      "name": "Запеченый ролл «Калифорния»",
+      "img": "img/roll/zapech-california.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 50,
+      "price": 111
+    },
+    {
+      "id": 8,
+      "name": "Филадельфия",
+      "img": "img/roll/philadelphia.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 790,
+      "price": 890
+    },
+    {
+      "id": 9,
+      "name": "Филадельфия хит ролл",
+      "img": "img/roll/philadelphia.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 180,
+      "price": 126
+    },
+    {
+      "id": 10,
+      "name": "Калифорния темпура",
+      "img": "img/roll/california-tempura.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 212,
+      "price": 126
+    },
+    {
+      "id": 11,
+      "name": "Запеченый ролл «Калифорния»",
+      "img": "img/roll/zapech-california.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 100,
+      "price": 292
+    },
+    {
+      "id": 12,
+      "name": "Филадельфия",
+      "img": "img/roll/philadelphia.jpg",
+      "amount": 6,
+      "count": 1,
+      "weight": 230,
+      "price": 430
+    }
+  ]
+}
